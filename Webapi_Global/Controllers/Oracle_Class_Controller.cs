@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model_HelperCore;
 using Newtonsoft.Json;
 using System.Data;
+using System.Data.Common;
 using System.Text.Json.Serialization;
 using Webapi_Global.Class_pool;
 using static Webapi_Global.Class_pool.function_sql_Oracle;
@@ -106,7 +107,12 @@ namespace Webapi_Global.Controllers
                 sql += $@"WHERE";
                 foreach (string column_item in column.Split(','))
                 {
-                    sql += $@"{column} = {values[i]} AND";
+                    if(i <= column.Split(',').Length - 1)
+                    {
+                        sql += $@"{column} = {values[i]} AND";
+                    
+                    }
+                    sql += $@"{column} = {values[i]} ";
                     i++;
                 }
             }
