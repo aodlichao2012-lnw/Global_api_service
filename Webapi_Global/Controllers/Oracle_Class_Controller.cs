@@ -60,43 +60,43 @@ namespace Webapi_Global.Controllers
         
         [HttpGet]
         [Route("GetPredictAgenT")]
-        public string GetPreditAgenT(string txtUsername ,string txtPassword)
+        public string GetPreditAgenT(string txtUsername ,string txtPassword , string type_db ,string strDB)
         {
             dt = new DataTable();
             function_.Funtion_Select_Sql("SELECT * FROM PREDIC_AGENTS" +
                 "WHERE (LOGIN = "+ txtUsername +" )"               
-           +" and (PASSWORD= "+ txtPassword + " ) AND ROWNUM = 1 ", null, null, ref dt);
+           +" and (PASSWORD= "+ txtPassword + " ) AND ROWNUM = 1 ", null, null, ref dt , type_db , strDB);
             string json = JsonConvert.SerializeObject(dt);
             return json;
         }     
         
         [HttpGet]
         [Route("Get_All_DataFromTable_Where")]
-        public string Get_All_DataFromTable_Where(string Table ,string column , string values)
+        public string Get_All_DataFromTable_Where( string type_db ,string strDB ,string Table , string column_where, string values_where)
         {
             string sql = string.Empty;
             sql += $@"SELECT * FROM {Table}  ";
             int i = 0;
-            if (column != null)
+            if (column_where != null)
             {
                 sql += $@" WHERE ";
-                foreach (string column_item in column.Split(','))
+                foreach (string column_item in column_where.Split(';'))
                 {
-                    if (i < column.Split(',').Length - 1)
+                    if (i < column_where.Split(';').Length - 1)
                     {
-                        sql += $@"{column} = {values[i]} AND ";
+                        sql += $@"{column_item} = {values_where.Split(';')[i]} AND ";
 
                     }
                     else
                     {
-                        sql += $@"{column} = {values[i]} ";
+                        sql += $@"{column_item} = {values_where.Split(';')[i]} ";
                     }
 
                     i++;
                 }
             }
             dt = new DataTable();
-            function_.Funtion_Select_Sql(sql, null, null, ref dt);
+            function_.Funtion_Select_Sql(sql, null, null, ref dt , type_db , strDB);
             string json = JsonConvert.SerializeObject(dt);
             return json;
         } 
@@ -104,14 +104,14 @@ namespace Webapi_Global.Controllers
         
         [HttpGet]
         [Route("Get_column_DataFromTable_Where")]
-        public string Get_column_DataFromTable_Where(string Table ,string column_select,string column_where , string values_where)
+        public string Get_column_DataFromTable_Where(string type_db , string strDB, string Table ,string column_select,string column_where ,string values_where )
         {
             string sql = string.Empty;
             sql += $@"SELECT ";
             int i = 0;
-            foreach(string item in column_select.Split(','))
+            foreach(string item in column_select.Split(';'))
             {
-                if (i < column_select.Split(',').Length - 1)
+                if (i < column_select.Split(';').Length - 1)
                 {
                     sql += $@"{item} , ";
 
@@ -124,29 +124,43 @@ namespace Webapi_Global.Controllers
                 i++;
             }
             sql += $@" FROM {Table} ";
-
+            string sql_where = string.Empty;
             if(column_where != null)
             {
                 int e = 0;
-                sql += $@" WHERE ";
-                foreach (string column_item in column_where.Split(','))
+                sql_where += $@" WHERE ";
+                foreach (string column_item in column_where.Split(';'))
                 {
-                    if(e < column_where.Split(',').Length - 1)
+                    if(e < column_where.Split(';').Length - 1)
                     {
-                        sql += $@"{column_where} = {values_where[e]} AND ";
+                        //if(values_where_int != null)
+                        //{
+                        //    sql_where += $@"{column_item} = {values_where_int.Split(',')[e]} AND ";
+                        //}
+                        //else
+                        {
+                            sql_where += $@"{column_item} = {values_where.Split(';')[e]} AND ";
+                        }
                     
                     }
                     else
                     {
-                        sql += $@"{column_where} = {values_where[e]} ";
+                        //if (values_where_string != null)
+                        //{
+                            sql_where += $@"{column_item} = {values_where.Split(';')[e]}";
+                        //}
+                        //else
+                        //{
+                        //    sql_where += $@"{column_item} = {values_where_int.Split(',')[e]} ";
+                        //}
                     }
             
                     e++;
                 }
             }
-          
+            sql += sql_where;
             dt = new DataTable();
-            function_.Funtion_Select_Sql(sql, null, null, ref dt);
+            function_.Funtion_Select_Sql(sql, null, null, ref dt , type_db, strDB);
             string json = JsonConvert.SerializeObject(dt);
             return json;
         }

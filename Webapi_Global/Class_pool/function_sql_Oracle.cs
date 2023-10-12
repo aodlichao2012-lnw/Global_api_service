@@ -16,7 +16,6 @@ namespace Webapi_Global.Class_pool
     {
 
             public readonly IWebHostEnvironment _environment;
-            public readonly string strDB;
             public readonly string user_name;
             public readonly string strConn;
             public readonly string type_db;
@@ -28,7 +27,8 @@ namespace Webapi_Global.Class_pool
             HttpClient.HttpContext context;
 
          
-            public function_sql_Oracle(IWebHostEnvironment environment)
+            public function_sql_Oracle(IWebHostEnvironment environment , string type_db = "" , string strDB = "")
+
             {
                 var builder = new ConfigurationBuilder()
       .SetBasePath(Directory.GetCurrentDirectory())
@@ -36,17 +36,14 @@ namespace Webapi_Global.Class_pool
 
                 // สร้าง IConfiguration
                 var configuration = builder.Build();
-                if (type_db == null)
-                {
-                    type_db = type_db_;
-                }
+                //if (type_db == null)
+                //{
+                //    type_db = type_db_;
+                //}
                 if (user_name == null)
                 {
                     user_name = user_name_;
                 }
-                if (strDB == null)
-                {
-                    strDB = strDB_;
 
                     if (type_db != null)
                     {
@@ -126,7 +123,7 @@ namespace Webapi_Global.Class_pool
 
                         }
                     }
-                }
+
                 _environment = environment;
             }
             public static OracleConnection Connect;
@@ -173,11 +170,12 @@ namespace Webapi_Global.Class_pool
             public int Call_Count = 0;
             public Dictionary<string, object> keyValuePairs;
 
-            public void Connectdb()
+            public void Connectdb(string type, string strDB = "Production")
             {
                 try
                 {
-                    Connect = new OracleConnection(strConn);
+                function_sql_Oracle function_Sql_Oracle = new function_sql_Oracle(_environment, type, strDB);
+                Connect = new OracleConnection(strConn);
                     {
                         Connect.Open();
                     }
@@ -189,7 +187,7 @@ namespace Webapi_Global.Class_pool
                 }
             }
 
-            public void Funtion_Select_Sql(string sQL, string[] input, string[] parameter, ref DataTable dt)
+            public void Funtion_Select_Sql(string sQL, string[] input, string[] parameter, ref DataTable dt ,string type ,string strDB = "Production")
             {
 
                 try
@@ -202,9 +200,9 @@ namespace Webapi_Global.Class_pool
                     //{
                     //    Connectdb();
                     //}
-                    Connectdb();
+                    Connectdb(type,strDB);
 
-                    dt = Excutue_process_sql(sQL, input, parameter);
+                    dt = Excutue_process_sql(sQL, input, parameter, type , strDB);
 
 
 
@@ -221,10 +219,10 @@ namespace Webapi_Global.Class_pool
             }
 
 
-            private DataTable Excutue_process_sql(string sQL, string[] input, string[] parameter)
+            private DataTable Excutue_process_sql(string sQL, string[] input, string[] parameter , string type_db ,string strDB ="Production")
             {
-                Connectdb();
-                string Paraname = string.Empty;
+            Connectdb(type_db, strDB);
+            string Paraname = string.Empty;
                 DataTable dt1 = Execute_Sql(sQL, input, parameter, Paraname);
 
                 return dt1;
@@ -306,19 +304,19 @@ namespace Webapi_Global.Class_pool
 
                 return dt2;
             }
-            public int Function_Excute_Update_And_Insert_And_Delete(string sQL, string[] input = null, string[] parameter = null)
+            public int Function_Excute_Update_And_Insert_And_Delete(string sQL, string[] input = null, string[] parameter = null ,string type ="" , string strDB = "")
             {
                 try
                 {
                     dt = new DataTable();
 
-                    Connectdb();
+                Connectdb(type, strDB);
 
 
-                    //// เปิดการเชื่อมต่อกับ Oracle
-                    //Connect.Open();
+                //// เปิดการเชื่อมต่อกับ Oracle
+                //Connect.Open();
 
-                    using (OracleTransaction transaction = Connect.BeginTransaction())
+                using (OracleTransaction transaction = Connect.BeginTransaction())
                     {
                         OracleCommand Cmd = new OracleCommand(sQL, Connect);
                         if (input != null)
