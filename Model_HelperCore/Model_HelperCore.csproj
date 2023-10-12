@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Module2.cs" />
+    <Compile Remove="WriteLog.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Oracle.ManagedDataAccess">
+      <HintPath>..\..\..\..\..\WINDOWS.X64_193000_db_home\ODP.NET\managed\common\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Caching">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Runtime.Caching.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
