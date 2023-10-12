@@ -138,9 +138,9 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
-            "Oracle.ManagedDataAccess": {
+            "Oracle.ManagedDataAccess.Core": {
               "target": "Package",
-              "version": "[21.11.0, )"
+              "version": "[23.2.0-dev, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

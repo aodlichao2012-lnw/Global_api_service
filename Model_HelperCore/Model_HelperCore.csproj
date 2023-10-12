@@ -17,9 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Oracle.ManagedDataAccess">
-      <HintPath>..\..\..\..\..\WINDOWS.X64_193000_db_home\ODP.NET\managed\common\Oracle.ManagedDataAccess.dll</HintPath>
-    </Reference>
     <Reference Include="System.Runtime.Caching">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Runtime.Caching.dll</HintPath>
     </Reference>

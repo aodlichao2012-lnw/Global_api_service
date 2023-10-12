@@ -75,12 +75,25 @@ namespace Webapi_Global.Controllers
         public string Get_All_DataFromTable_Where(string Table ,string column , string values)
         {
             string sql = string.Empty;
-            sql += $@"SELECT * FROM {Table} WHERE ";
+            sql += $@"SELECT * FROM {Table}  ";
             int i = 0;
-            foreach(string column_item in column.Split(','))
+            if (column != null)
             {
-                sql += $@"{column} = {values[i]} AND";
-                i++;
+                sql += $@" WHERE ";
+                foreach (string column_item in column.Split(','))
+                {
+                    if (i < column.Split(',').Length - 1)
+                    {
+                        sql += $@"{column} = {values[i]} AND ";
+
+                    }
+                    else
+                    {
+                        sql += $@"{column} = {values[i]} ";
+                    }
+
+                    i++;
+                }
             }
             dt = new DataTable();
             function_.Funtion_Select_Sql(sql, null, null, ref dt);
@@ -91,29 +104,44 @@ namespace Webapi_Global.Controllers
         
         [HttpGet]
         [Route("Get_column_DataFromTable_Where")]
-        public string Get_column_DataFromTable_Where(string Table ,string column_select,string column , string values)
+        public string Get_column_DataFromTable_Where(string Table ,string column_select,string column_where , string values_where)
         {
             string sql = string.Empty;
             sql += $@"SELECT ";
             int i = 0;
             foreach(string item in column_select.Split(','))
             {
-                sql += @$"{item} ,";
-            }
-            sql += $@" FROM {Table}";
-
-            if(column != null)
-            {
-                sql += $@"WHERE";
-                foreach (string column_item in column.Split(','))
+                if (i < column_select.Split(',').Length - 1)
                 {
-                    if(i <= column.Split(',').Length - 1)
+                    sql += $@"{item} , ";
+
+                }
+                else
+                {
+                    sql += $@"{item} ";
+                }
+
+                i++;
+            }
+            sql += $@" FROM {Table} ";
+
+            if(column_where != null)
+            {
+                int e = 0;
+                sql += $@" WHERE ";
+                foreach (string column_item in column_where.Split(','))
+                {
+                    if(e < column_where.Split(',').Length - 1)
                     {
-                        sql += $@"{column} = {values[i]} AND";
+                        sql += $@"{column_where} = {values_where[e]} AND ";
                     
                     }
-                    sql += $@"{column} = {values[i]} ";
-                    i++;
+                    else
+                    {
+                        sql += $@"{column_where} = {values_where[e]} ";
+                    }
+            
+                    e++;
                 }
             }
           

@@ -4,17 +4,18 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.VisualBasic;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Oracle.ManagedDataAccess.Client;
 using System.Data;
 using HttpClient = Microsoft.AspNetCore.Http;
 using Model_HelperCore;
+using System;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Webapi_Global.Class_pool
 {
     public class function_sql_Oracle
     {
 
-            private readonly IWebHostEnvironment _environment;
+            public readonly IWebHostEnvironment _environment;
             public readonly string strDB;
             public readonly string user_name;
             public readonly string strConn;
@@ -128,7 +129,6 @@ namespace Webapi_Global.Class_pool
                 }
                 _environment = environment;
             }
-            WriteLog WriteLog;
             public static OracleConnection Connect;
 
 
@@ -184,8 +184,8 @@ namespace Webapi_Global.Class_pool
                 }
                 catch (Exception ex)
                 {
-                    WriteLog.Log("Error ที่ Connect : " + ex.Message.ToString());
-                    WriteLog.Log("ไม่สามารถบันทึกข้อมูลได้เนื่องจากปัญหาติดต่อฐานข้อมูล " + ex.Message + "ผลการตรวจสอบ");
+                    Log("Error ที่ Connect : " + ex.Message.ToString());
+                    Log("ไม่สามารถบันทึกข้อมูลได้เนื่องจากปัญหาติดต่อฐานข้อมูล " + ex.Message + "ผลการตรวจสอบ");
                 }
             }
 
@@ -194,7 +194,7 @@ namespace Webapi_Global.Class_pool
 
                 try
                 {
-                    WriteLog.LogSql(sQL);
+                    LogSql(sQL);
                     DataTable dt2 = new DataTable();
                     object connectionLock = new object();
                     //Connectdb();
@@ -211,7 +211,7 @@ namespace Webapi_Global.Class_pool
                 }
                 catch (Exception ex)
                 {
-                    WriteLog.Log("Error ที่ Comman_Static : " + ex.Message.ToString());
+                    Log("Error ที่ Comman_Static : " + ex.Message.ToString());
 
                 }
                 finally
@@ -244,7 +244,7 @@ namespace Webapi_Global.Class_pool
                     {
                         using (OracleCommand command = new OracleCommand(sQL, Connect))
                         {
-                            WriteLog.LogSql(Connect.ConnectionString);
+                            LogSql(Connect.ConnectionString);
                             if (input != null)
                             {
                                 if (input.Length > 0)
@@ -340,7 +340,7 @@ namespace Webapi_Global.Class_pool
                         }
                         catch (OracleException ex)
                         {
-                            WriteLog.Log("Error ที่ Comman_Ex : " + ex.Message.ToString());
+                            Log("Error ที่ Comman_Ex : " + ex.Message.ToString());
                             transaction.Commit();
                             transaction.Dispose();
                             return -1;
@@ -351,7 +351,7 @@ namespace Webapi_Global.Class_pool
                 }
                 catch (Exception ex)
                 {
-                    WriteLog.Log("Error ที่ Comman_Ex : " + ex.Message.ToString());
+                    Log("Error ที่ Comman_Ex : " + ex.Message.ToString());
                     return 0;
                 }
                 finally
@@ -418,7 +418,7 @@ namespace Webapi_Global.Class_pool
                 }
                 catch (Exception ex)
                 {
-                    WriteLog.Log("Error ที่ GetFromToken : " + ex.Message.ToString());
+                    Log("Error ที่ GetFromToken : " + ex.Message.ToString());
                     return null;
                 }
 
@@ -441,21 +441,7 @@ namespace Webapi_Global.Class_pool
 
                 return table;
             }
-
-        }
-
-
-    }
-
-    public class WriteLog
-    {
-        private readonly IWebHostEnvironment _environment;
-        private WriteLog(IWebHostEnvironment environment) {
-
-            _environment = environment;
-        }
-  
-        public  void Log(string message)
+        public void Log(string message)
         {
             try
             {
@@ -479,7 +465,7 @@ namespace Webapi_Global.Class_pool
 
         }
 
-        public  void LogSql(string message)
+        public void LogSql(string message)
         {
             try
             {
@@ -502,6 +488,10 @@ namespace Webapi_Global.Class_pool
 
 
         }
-
     }
+
+
+}
+
+   
 
