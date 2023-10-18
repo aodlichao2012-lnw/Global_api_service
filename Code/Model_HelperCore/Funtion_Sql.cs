@@ -1,10 +1,14 @@
-﻿using Dapper;
+﻿
+using Dapper;
 using Jose;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Oracle.ManagedDataAccess.Client;
 using System.Data;
 using HttpClient = Microsoft.AspNetCore.Http;
-using Oracle.ManagedDataAccess.Client;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
+
+
 
 namespace Model_HelperCore
 {
@@ -21,16 +25,168 @@ namespace Model_HelperCore
         public static string type_db_;
         HttpClient.HttpContext context;
 
+        //public void Log(string message)
+        //{
+        //    try
+        //    {
+        //        string path = _environment.ContentRootPath + "\\InformationLog_Sql_And_Event\\";
+        //        if (!Directory.Exists(path))
+
+        //        {
+        //            Directory.CreateDirectory(path);
+        //        }
+        //        using (StreamWriter steam = new StreamWriter(path + DateTime.Now.ToString("yyyyMMdd") + ".txt", true))
+        //        {
+
+        //            steam.WriteLine(": " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + ": = " + message);
+        //        }
+        //    }
+        //    catch
+        //    {
+
+        //    }
+
+
+        //}
+
+        //public void LogSql(string message)
+        //{
+        //    try
+        //    {
+        //        string path = _environment.ContentRootPath + "\\Information_sql\\";
+        //        if (!Directory.Exists(path))
+
+        //        {
+        //            Directory.CreateDirectory(path);
+        //        }
+        //        using (StreamWriter steam = new StreamWriter(path + DateTime.Now.ToString("yyyyMMdd") + ".txt", true))
+        //        {
+
+        //            steam.WriteLine(": " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + ": = " + message);
+        //        }
+        //    }
+        //    catch
+        //    {
+
+        //    }
+
+
+        //}
+
+        public void Log_Save_information(string Cookie_AgenId, string Datetimes)
+        {
+            try
+            {
+
+                string path = _environment.ContentRootPath + "\\Log_Save_AgenID\\" + DateTime.Now.ToString("yyyyMMdd") + "\\";
+                if (!Directory.Exists(path))
+
+                {
+                    Directory.CreateDirectory(path);
+                }
+                using (StreamWriter steam = new StreamWriter(path + "_" + Cookie_AgenId + "_" + Datetimes + ".txt", true))
+                {
+
+                    steam.WriteLine(DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "=" + Cookie_AgenId + ",");
+                }
+            }
+            catch
+            {
+
+            }
+
+
+        }
+
+        public string Log_Get_information(string Cookie_AgenId, string Datetimes)
+        {
+            string messages = string.Empty;
+            try
+            {
+
+                string path = _environment.ContentRootPath + "\\Log_Save_AgenID\\" + DateTime.Now.ToString("yyyyMMdd") + "\\";
+
+                using (StreamReader steam = new StreamReader(path + "_" + Cookie_AgenId + "_" + Datetimes + ".txt", true))
+                {
+
+                    messages = steam.ReadToEnd();
+                }
+                return messages;
+            }
+            catch (Exception ex)
+            {
+                LogSql(ex.Message.ToString());
+                return string.Empty;
+            }
+        }
+
+        public string Log_Get_information_SaveData_And_Edit(string result = "", string type = "", string Cookie_AgenId = "", string Datetimes = "", ViewModel Model = null)
+
+        {
+            string messages = string.Empty;
+            try
+            {
+
+                string path = _environment.ContentRootPath + "\\SaveData_And_Edit\\" + DateTime.Now.ToString("yyyyMMdd") + "\\";
+                if (!Directory.Exists(path))
+
+                {
+                    Directory.CreateDirectory(path);
+                }
+                using (StreamWriter steam = new StreamWriter(path + "_" + Cookie_AgenId + "_" + Datetimes + ".txt", true))
+                {
+                    steam.WriteLine(DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + " , Result = " + result + " , Type = " + type + " ," + "=" + $@" txtTel_No :{Model.txtTel_No} , txtName : {Model.txtName} , txtSName : {Model.txtSName} , cboDate : {Model.cboDate} , cboMouth : {Model.cboMouth} , txtYear : {Model.txtYear} , cboSex : {Model.cboSex} , cboStatus : {Model.cboStatus.ToString().Replace(" ", "")} , cbocity :{Model.cbocity}");
+
+                }
+
+
+                return messages;
+            }
+            catch (Exception ex)
+            {
+                LogSql(ex.Message.ToString());
+                return string.Empty;
+            }
+
+
+        }
+
+        public int Log_Get_information_lenght(string Cookie_AgenId, string Datetimes)
+        {
+            int count = 0;
+            try
+            {
+
+                string path = _environment.ContentRootPath + "\\Log_Save_AgenID\\" + DateTime.Now.ToString("yyyyMMdd") + "\\";
+
+                using (StreamReader steam = new StreamReader(path + "_" + Cookie_AgenId + "_" + Datetimes + ".txt", true))
+                {
+
+                    count = steam.ReadToEnd().Split(',').Length - 1;
+                }
+                return count;
+
+            }
+            catch (Exception ex)
+            {
+                LogSql(ex.Message.ToString());
+                return count = 0;
+            }
+
+
+        }
 
         public Funtion_Sql(IHostEnvironment environment, string type_db = "", string strDB = "")
 
         {
-            var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
-  .SetBasePath(Directory.GetCurrentDirectory())
-  .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+      
+            IConfiguration configuration = new ConfigurationBuilder()
+           .SetBasePath(Directory.GetCurrentDirectory()) // Set the base path if needed
+           .AddJsonFile("appsettings.json")
+           .Build();
+
 
             // สร้าง IConfiguration
-            var configuration = builder.Build();
             //if (type_db == null)
             //{
             //    type_db = type_db_;

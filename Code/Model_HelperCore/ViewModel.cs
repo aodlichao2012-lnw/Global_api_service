@@ -8,6 +8,71 @@ namespace Model_HelperCore
 {
     public class ViewModel
     {
+        public string Date_thai { get; set; }
+        public string txtTel_No { get; set; }
+        public string txtOper { get; set; }
+        public string txtDate_Tel { get; set; }
+        public string cboStatus { get; set; }
+        public string cboDeny { get; set; }
+        public bool btnEdit { get; set; }
+        public bool btnSave { get; set; }
+        public bool Button1 { get; set; }
+        public string cboSex { get; set; }
+        public string txtYear { get; set; }
+        public string cboDate { get; set; }
+        public string txtName { get; set; }
+        public string txtSName { get; set; }
+        public string cboDate_No { get; set; }
+        public string cboMouth { get; set; }
+        public bool SERVICE_0 { get; set; }
+        public bool SERVICE_01 { get; set; }
+        public bool SERVICE_02 { get; set; }
+        public bool SERVICE_03 { get; set; }
+        public bool SERVICE_04 { get; set; }
+        public bool SERVICE_05 { get; set; }
+        public bool SERVICE_06 { get; set; }
+        public bool SERVICE_07 { get; set; }
+        public bool SERVICE_08 { get; set; }
+        public bool SERVICE_09 { get; set; }
+        public bool SERVICE_10 { get; set; }
+        public bool SERVICE_11 { get; set; }
+        public bool SERVICE_12 { get; set; }
+        public bool SERVICE_13 { get; set; }
+        public bool SERVICE_14 { get; set; }
+        public bool SERVICE_15 { get; set; }
+        public bool SERVICE_16 { get; set; }
+        public bool SERVICE_17 { get; set; }
+        public bool SERVICE_18 { get; set; }
+        public bool SERVICE_19 { get; set; }
+        public bool SERVICE_20 { get; set; }
+        public bool SERVICE_21 { get; set; }
+        public bool SERVICE_22 { get; set; }
+        public bool SERVICE_23 { get; set; }
+        public bool SERVICE_24 { get; set; }
+        public bool SERVICE_25 { get; set; }
+        public bool SERVICE_26 { get; set; }
+        public bool SERVICE_27 { get; set; }
+        public bool SERVICE_28 { get; set; }
+        public bool SERVICE_29 { get; set; }
+        public bool SERVICE_30 { get; set; }
+        public bool SERVICE_31 { get; set; }
+        public bool SERVICE_32 { get; set; }
+        public bool SERVICE_33 { get; set; }
+        public bool SERVICE_34 { get; set; }
+        public bool SERVICE_35 { get; set; }
+        public bool SERVICE_36 { get; set; }
+        public bool SERVICE_37 { get; set; }
+        public bool SERVICE_38 { get; set; }
+        public bool SERVICE_39 { get; set; }
+        public string strDeny { get; set; }
+        public string cbocity { get; set; }
+        public string cbocity_name { get; set; }
+        public string statusfrm { get; set; }
+        public string status2 { get; set; }
+        public string statustel { get; set; }
+        public string res_code { get; set; }
+        public string VISIBLE { get; set; }
+        public string strDenycode { get; set; }
         public string DENY_CODE { get; set; }
         public string DENY_NAME { get; set; }
         public string DENY_STATUS { get; set; }
@@ -37,36 +102,7 @@ namespace Model_HelperCore
         public string SERVICE_7 { get; set; }
         public string SERVICE_8 { get; set; }
         public string SERVICE_9 { get; set; }
-        public string SERVICE_10 { get; set; }
-        public string SERVICE_11 { get; set; }
-        public string SERVICE_12 { get; set; }
-        public string SERVICE_13 { get; set; }
-        public string SERVICE_14 { get; set; }
-        public string SERVICE_15 { get; set; }
-        public string SERVICE_16 { get; set; }
-        public string SERVICE_17 { get; set; }
-        public string SERVICE_18 { get; set; }
-        public string SERVICE_19 { get; set; }
-        public string SERVICE_20 { get; set; }
-        public string SERVICE_21 { get; set; }
-        public string SERVICE_22 { get; set; }
-        public string SERVICE_23 { get; set; }
-        public string SERVICE_24 { get; set; }
-        public string SERVICE_25 { get; set; }
-        public string SERVICE_26 { get; set; }
-        public string SERVICE_27 { get; set; }
-        public string SERVICE_28 { get; set; }
-        public string SERVICE_29 { get; set; }
-        public string SERVICE_30 { get; set; }
-        public string SERVICE_31 { get; set; }
-        public string SERVICE_32 { get; set; }
-        public string SERVICE_33 { get; set; }
-        public string SERVICE_34 { get; set; }
-        public string SERVICE_35 { get; set; }
-        public string SERVICE_36 { get; set; }
-        public string SERVICE_37 { get; set; }
-        public string SERVICE_38 { get; set; }
-        public string SERVICE_39 { get; set; }
+
         public string RES_NAME { get; set; }
         public string RES_STATUS { get; set; }
         public string CITY_CODE { get; set; }

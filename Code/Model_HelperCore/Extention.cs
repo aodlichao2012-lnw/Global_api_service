@@ -16,52 +16,29 @@ namespace Model_HelperCore
         {
             Random random = new Random();
             int number_from_random = random.Next(0, 10);
-            using (Bitmap image = new Bitmap($@"{Directory.GetCurrentDirectory()}\Image\{ number_from_random}.jpg"))
+            using (Bitmap image = new Bitmap($@"{Directory.GetCurrentDirectory()}\Image\{number_from_random}.jpg"))
             {
                 int piecesWight = image.Width / 2;
-                int piecesHeight = image.Width /2 ;
-                for (int i = 0; i < 2; i ++ )
+                int piecesHeight = image.Width / 2;
+                for (int i = 0; i < 2; i++)
                 {
-                    for (int j = 0; j < 2; j ++)
+                    for (int j = 0; j < 2; j++)
                     {
-                        Rectangle piecseRetangle = new Rectangle( i * piecesWight, j * piecesHeight, piecesWight, piecesHeight);
+                        Rectangle piecseRetangle = new Rectangle(i * piecesWight, j * piecesHeight, piecesWight, piecesHeight);
                         using (Bitmap picese = new Bitmap(piecesWight, piecesWight))
                         {
                             using (Graphics g = Graphics.FromImage(picese))
                             {
                                 g.DrawImage(image, new Rectangle(0, 0, piecesWight, piecesWight), piecseRetangle, GraphicsUnit.Pixel);
                             }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                            picese.Save("D:\\image\\piece_"+ number_from_random.ToString()+"_i" + i +"_j"+j+".jpg");
-=======
-                            path += "D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg" + ";";
-                            picese.Save("D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg");
->>>>>>> parent of b2b83c5 (commit12)
-=======
-                            path += "D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg" + ";";
-                            picese.Save("D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg");
->>>>>>> parent of b2b83c5 (commit12)
-=======
-                            path += "D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg" + ";";
-                            picese.Save("D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg");
->>>>>>> parent of b2b83c5 (commit12)
-=======
-                            path += "D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg" + ";";
-                            picese.Save("D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg");
->>>>>>> parent of b2b83c5 (commit12)
-=======
-                            path += "D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg" + ";";
-                            picese.Save("D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg");
->>>>>>> parent of b2b83c5 (commit12)
+
                         }
                     }
+                    return "";
                 }
             }
             return "";
         }
+
     }
 }
