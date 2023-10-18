@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webapi_Global", "Webapi_Glo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model_Helper", "..\work\WebApplication1\Model_Helper\Model_Helper.csproj", "{DB6F4734-7E49-43D3-9854-843C29489D03}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model_HelperCore", "Model_HelperCore\Model_HelperCore.csproj", "{067990FF-4F15-45CD-84A9-FCE75E7FCE77}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model_Helper_famework", "Model_Helper_famework\Model_Helper_famework.csproj", "{23282E93-D5D1-424E-8AE8-F472E6B50B14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model_HelperCore", "Model_HelperCore\Model_HelperCore.csproj", "{067990FF-4F15-45CD-84A9-FCE75E7FCE77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{067990FF-4F15-45CD-84A9-FCE75E7FCE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{067990FF-4F15-45CD-84A9-FCE75E7FCE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{067990FF-4F15-45CD-84A9-FCE75E7FCE77}.Release|Any CPU.Build.0 = Release|Any CPU
-		{23282E93-D5D1-424E-8AE8-F472E6B50B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23282E93-D5D1-424E-8AE8-F472E6B50B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23282E93-D5D1-424E-8AE8-F472E6B50B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23282E93-D5D1-424E-8AE8-F472E6B50B14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
