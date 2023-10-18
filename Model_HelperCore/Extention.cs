@@ -15,9 +15,8 @@ namespace Model_HelperCore
         public string Jigsaw()
         {
             Random random = new Random();
-            string path = string.Empty;
             int number_from_random = random.Next(0, 10);
-            using (Bitmap image = new Bitmap($@"D:\Api\Image\{number_from_random}.jpg"))
+            using (Bitmap image = new Bitmap($@"{Directory.GetCurrentDirectory()}\Image\{ number_from_random}.jpg"))
             {
                 int piecesWight = image.Width / 2;
                 int piecesHeight = image.Width /2 ;
@@ -32,13 +31,12 @@ namespace Model_HelperCore
                             {
                                 g.DrawImage(image, new Rectangle(0, 0, piecesWight, piecesWight), piecseRetangle, GraphicsUnit.Pixel);
                             }
-                            path += "D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg" + ";";
-                            picese.Save("D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg");
+                            picese.Save("D:\\image\\piece_"+ number_from_random.ToString()+"_i" + i +"_j"+j+".jpg");
                         }
                     }
                 }
             }
-            return path;
+            return "";
         }
     }
 }

@@ -312,7 +312,7 @@ namespace Webapi_Global.Class_pool
 
                 Connectdb(type, strDB);
 
-                var param = new DynamicParameters();
+
                 //// เปิดการเชื่อมต่อกับ Oracle
                 //Connect.Open();
 
@@ -324,21 +324,13 @@ namespace Webapi_Global.Class_pool
                             int i = 0;
                             foreach (string s in input)
                             {
-                            param.Add(parameter[i], s);
+                                Cmd.Parameters.Add(parameter[i], s);
                                 i++;
                             }
                         }
                         try
                         {
-                        int i = 0;
-                        if (input != null)
-                        {
-                          i = Connect.Execute(Cmd.CommandText, param);
-                        }
-                        else
-                        {
-                            i = Connect.Execute(Cmd.CommandText);
-                        }
+                            int i = Cmd.ExecuteNonQuery();
                             Cmd.Dispose();
                             transaction.Commit();
                             transaction.Dispose();
