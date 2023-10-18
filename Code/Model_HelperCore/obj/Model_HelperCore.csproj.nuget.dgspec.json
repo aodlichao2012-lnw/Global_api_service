@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Model_HelperCore\\Model_HelperCore.csproj": {}
+    "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Model_HelperCore\\Model_HelperCore.csproj": {}
   },
   "projects": {
-    "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Model_HelperCore\\Model_HelperCore.csproj": {
+    "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Model_HelperCore\\Model_HelperCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Model_HelperCore\\Model_HelperCore.csproj",
+        "projectUniqueName": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Model_HelperCore\\Model_HelperCore.csproj",
         "projectName": "Model_HelperCore",
-        "projectPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Model_HelperCore\\Model_HelperCore.csproj",
+        "projectPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Model_HelperCore\\Model_HelperCore.csproj",
         "packagesPath": "C:\\Users\\Suparat\\.nuget\\packages\\",
-        "outputPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Model_HelperCore\\obj\\",
+        "outputPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Model_HelperCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
