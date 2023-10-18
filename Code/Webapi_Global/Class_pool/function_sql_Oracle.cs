@@ -315,28 +315,38 @@ namespace Webapi_Global.Class_pool
 
                 //// เปิดการเชื่อมต่อกับ Oracle
                 //Connect.Open();
-
+                var param = new DynamicParameters();
                 using (OracleTransaction transaction = Connect.BeginTransaction())
                     {
                         OracleCommand Cmd = new OracleCommand(sQL, Connect);
-                        if (input != null)
+                    if (input != null)
+                    {
+                        int i = 0;
+                        foreach (string s in input)
                         {
-                            int i = 0;
-                            foreach (string s in input)
-                            {
-                                Cmd.Parameters.Add(parameter[i], s);
-                                i++;
-                            }
+                            param.Add(parameter[i], s);
+                            i++;
                         }
+                    }
+                    
                         try
                         {
-                            int i = Cmd.ExecuteNonQuery();
-                            Cmd.Dispose();
-                            transaction.Commit();
-                            transaction.Dispose();
-                            return i;
+                        //int i = Cmd.ExecuteNonQuery();
+                        //Cmd.Dispose();
+                        //transaction.Commit();
+                        //transaction.Dispose();
+                        //return i;
+                        int i = 0;
+                        if (input != null)
+                        {
+                            i = Connect.Execute(Cmd.CommandText, param);
                         }
-                        catch (OracleException ex)
+                        else
+                        {
+                            i = Connect.Execute(Cmd.CommandText);
+                        }
+                    }
+                    catch (OracleException ex)
                         {
                             Log("Error ที่ Comman_Ex : " + ex.Message.ToString());
                             transaction.Commit();
@@ -344,7 +354,7 @@ namespace Webapi_Global.Class_pool
                             return -1;
                         }
                     }
-
+                return 1;
 
                 }
                 catch (Exception ex)

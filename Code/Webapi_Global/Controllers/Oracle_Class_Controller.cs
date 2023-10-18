@@ -164,5 +164,70 @@ namespace Webapi_Global.Controllers
             string json = JsonConvert.SerializeObject(dt);
             return json;
         }
+
+        [HttpPost]
+        [Route("Post_Save")]
+        public ObjectResult Post_Save(string type_db, string strDB, string Table, string column_Insert, string values_Insert)
+        {
+            string sql = string.Empty;
+            string sqlValues = string.Empty;
+            string sqlWhere = string.Empty;
+            try
+            {
+                sql += $@"INSERT INTO {Table} ";
+                sqlValues += $@" (";
+                int i = 0;
+                foreach (string item in column_Insert.Split(';'))
+                {
+                    if (i < column_Insert.Split(';').Length - 1)
+                    {
+                        sqlValues += $@"{item} , ";
+
+                    }
+                    else
+                    {
+                        sqlValues += $@"{item} ";
+                    }
+
+                    i++;
+                }
+                sqlValues += " ) VALUES ( ";
+                int e = 0;
+                foreach (string item in values_Insert.Split(';'))
+                {
+                    if (e < values_Insert.Split(';').Length - 1)
+                    {
+                        sqlValues += $@"{item} , ";
+
+                    }
+                    else
+                    {
+                        sqlValues += $@"{item} )";
+                    }
+
+                    e++;
+                }
+                sql += sqlValues;
+                int g = function_.Function_Excute_Update_And_Insert_And_Delete(sql, null, null, type_db, strDB);
+                if (g == 0)
+                {
+                    return Ok("ข้อมูลไม่เข้า กรุณาติดต่อผู้ดูแลระบบ");
+                }
+                return Ok("ข้อมูลเข้าเรียบร่อย");
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message.ToString());
+
+            }
+        }
+        [HttpGet]
+        [Route("GetJigSaw_SaveToDrive")]
+        public void GetJigSaw_SaveToDrive(string path)
+
+        {
+            Response.Redirect(path);
+        }
     }
 }

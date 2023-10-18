@@ -10,13 +10,12 @@ namespace Model_HelperCore
 {
     public class Extention
     {
-        Guid Guid { get; set; }
-        //Capcha jigsaw
         public string Jigsaw()
         {
             Random random = new Random();
+            string path = string.Empty;
             int number_from_random = random.Next(0, 10);
-            using (Bitmap image = new Bitmap($@"{Directory.GetCurrentDirectory()}\Image\{number_from_random}.jpg"))
+            using (Bitmap image = new Bitmap($@"D:\Api\Image\{number_from_random}.jpg"))
             {
                 int piecesWight = image.Width / 2;
                 int piecesHeight = image.Width / 2;
@@ -31,13 +30,13 @@ namespace Model_HelperCore
                             {
                                 g.DrawImage(image, new Rectangle(0, 0, piecesWight, piecesWight), piecseRetangle, GraphicsUnit.Pixel);
                             }
-
+                            path += "http://172.21.140.104:8084/imageOutput/piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg" + ";";
+                            picese.Save("D:\\Api\\imageOutput\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg");
                         }
                     }
-                    return "";
                 }
             }
-            return "";
+            return path;
         }
 
     }

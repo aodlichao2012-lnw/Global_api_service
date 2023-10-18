@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Webapi_Global\\Webapi_Global.csproj": {}
+    "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Webapi_Global\\Webapi_Global.csproj": {}
   },
   "projects": {
-    "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Model_HelperCore\\Model_HelperCore.csproj": {
+    "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Model_HelperCore\\Model_HelperCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Model_HelperCore\\Model_HelperCore.csproj",
+        "projectUniqueName": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Model_HelperCore\\Model_HelperCore.csproj",
         "projectName": "Model_HelperCore",
-        "projectPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Model_HelperCore\\Model_HelperCore.csproj",
+        "projectPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Model_HelperCore\\Model_HelperCore.csproj",
         "packagesPath": "C:\\Users\\Suparat\\.nuget\\packages\\",
-        "outputPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Model_HelperCore\\obj\\",
+        "outputPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Model_HelperCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,13 +44,37 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.1.11, )"
+            },
             "Microsoft.AspNetCore.Http.Abstractions": {
               "target": "Package",
               "version": "[2.2.0, )"
             },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[8.0.0-rc.2.23479.6, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0-rc.2.23479.6, )"
+            },
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Microsoft.Extensions.Hosting.Abstractions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "jose-jwt": {
+              "target": "Package",
+              "version": "[4.1.0, )"
             }
           },
           "imports": [
@@ -78,14 +102,14 @@
         }
       }
     },
-    "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Webapi_Global\\Webapi_Global.csproj": {
+    "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Webapi_Global\\Webapi_Global.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Webapi_Global\\Webapi_Global.csproj",
+        "projectUniqueName": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Webapi_Global\\Webapi_Global.csproj",
         "projectName": "Webapi_Global",
-        "projectPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Webapi_Global\\Webapi_Global.csproj",
+        "projectPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Webapi_Global\\Webapi_Global.csproj",
         "packagesPath": "C:\\Users\\Suparat\\.nuget\\packages\\",
-        "outputPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Webapi_Global\\obj\\publish\\win-x64\\",
+        "outputPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Webapi_Global\\obj\\publish\\win-x64\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -107,8 +131,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Model_HelperCore\\Model_HelperCore.csproj": {
-                "projectPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Model_HelperCore\\Model_HelperCore.csproj"
+              "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Model_HelperCore\\Model_HelperCore.csproj": {
+                "projectPath": "D:\\work\\Program_v4.8\\ais_web2\\Webapi_Global\\Global_api_service\\Code\\Model_HelperCore\\Model_HelperCore.csproj"
               }
             }
           }
@@ -123,10 +147,6 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "Dapper": {
-              "target": "Package",
-              "version": "[2.1.4, )"
-            },
             "Microsoft.AspNetCore.Http": {
               "target": "Package",
               "version": "[2.2.2, )"
