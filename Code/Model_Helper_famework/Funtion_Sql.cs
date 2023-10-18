@@ -452,7 +452,7 @@ namespace Model_Helper_famework
         {
             try
             {
-                string path = HttpContext.Current.Request.MapPath("~\\bin") + "\\InformationLog_Sql_And_Event\\";
+                string path = Directory.GetCurrentDirectory() + "\\InformationLog_Sql_And_Event\\";
                 if (!Directory.Exists(path))
 
                 {
@@ -476,7 +476,7 @@ namespace Model_Helper_famework
         {
             try
             {
-                string path = HttpContext.Current.Request.MapPath("~\\bin") + "\\Information_sql\\";
+                string path =Directory.GetCurrentDirectory() + "\\Information_sql\\";
                 if (!Directory.Exists(path))
 
                 {
