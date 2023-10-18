@@ -56,6 +56,14 @@ namespace Webapi_Global.Controllers
         public string GetJigSaw()
         {
            return Extention_.Jigsaw();
+        }     
+        
+        [HttpGet]
+        [Route("GetJigSaw_SaveToDrive")]
+        public void GetJigSaw_SaveToDrive(string path )
+             
+        {
+            Response.Redirect(path);
         }  
         
         [HttpGet]
