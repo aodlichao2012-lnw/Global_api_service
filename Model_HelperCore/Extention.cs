@@ -32,8 +32,8 @@ namespace Model_HelperCore
                             {
                                 g.DrawImage(image, new Rectangle(0, 0, piecesWight, piecesWight), piecseRetangle, GraphicsUnit.Pixel);
                             }
-                            path += "http://172.21.140.104:8084/imageOutput/piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg" + ";";
-                            picese.Save("D:\\Api\\imageOutput\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg");
+                            path += "D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg" + ";";
+                            picese.Save("D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg");
                         }
                     }
                 }
