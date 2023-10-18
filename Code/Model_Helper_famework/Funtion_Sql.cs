@@ -26,8 +26,7 @@ namespace Model_Helper_famework
         public static string strConn_;
         public static string type_db_;
 
-
-
+        [Obsolete]
         public Funtion_Sql( string type_db = "", string strDB = "")
 
         {
@@ -52,58 +51,58 @@ namespace Model_Helper_famework
                 {
                     if (type_db == "1200")
                     {
-                        strConn = ConfigurationSettings.AppSettings["pro1"].ToString();
+                        strConn = ConfigurationManager.AppSettings["pro1"].ToString();
 
                     }
                     else if (type_db == "2400")
                     {
-                        strConn = ConfigurationSettings.AppSettings["pro2"].ToString();
+                        strConn = ConfigurationManager.AppSettings["pro2"].ToString();
                     }
                     else if (type_db == "4800")
                     {
-                        strConn = ConfigurationSettings.AppSettings["pro3"].ToString();
+                        strConn = ConfigurationManager.AppSettings["pro3"].ToString();
                     }
                     else
                     {
-                        strConn = ConfigurationSettings.AppSettings["pro"].ToString();
+                        strConn = ConfigurationManager.AppSettings["pro"].ToString();
                     }
                 }
                 else if (strDB == "Backup")
                 {
                     if (type_db == "1200")
                     {
-                        strConn = ConfigurationSettings.AppSettings["back1"].ToString();
+                        strConn = ConfigurationManager.AppSettings["back1"].ToString();
                     }
                     else if (type_db == "2400")
                     {
-                        strConn = ConfigurationSettings.AppSettings["back2"].ToString();
+                        strConn = ConfigurationManager.AppSettings["back2"].ToString();
                     }
                     else if (type_db == "4800")
                     {
-                        strConn = ConfigurationSettings.AppSettings["back3"].ToString();
+                        strConn = ConfigurationManager.AppSettings["back3"].ToString();
                     }
                     else
                     {
-                        strConn = ConfigurationSettings.AppSettings["back"].ToString();
+                        strConn = ConfigurationManager.AppSettings["back"].ToString();
                     }
                 }
                 else
                 {
                     if (type_db == "1200")
                     {
-                        strConn = ConfigurationSettings.AppSettings["back1"].ToString();
+                        strConn = ConfigurationManager.AppSettings["back1"].ToString();
                     }
                     else if (type_db == "2400")
                     {
-                        strConn = ConfigurationSettings.AppSettings["back2"].ToString();
+                        strConn = ConfigurationManager.AppSettings["back2"].ToString();
                     }
                     else if (type_db == "4800")
                     {
-                        strConn = ConfigurationSettings.AppSettings["back3"].ToString();
+                        strConn = ConfigurationManager.AppSettings["back3"].ToString();
                     }
                     else
                     {
-                        strConn = ConfigurationSettings.AppSettings["back"].ToString();
+                        strConn = ConfigurationManager.AppSettings["back"].ToString();
                     }
                 }
             }
@@ -111,16 +110,16 @@ namespace Model_Helper_famework
             {
                 if (strDB == "Production")
                 {
-                    strConn = ConfigurationSettings.AppSettings["pro"].ToString();
+                    strConn = ConfigurationManager.AppSettings["pro"].ToString();
                 }
                 else if (strDB == "Backup")
                 {
-                    strConn = ConfigurationSettings.AppSettings["back"].ToString();
+                    strConn = ConfigurationManager.AppSettings["back"].ToString();
                 }
                 else
                 {
                     {
-                        strConn = ConfigurationSettings.AppSettings["back"].ToString();
+                        strConn = ConfigurationManager.AppSettings["back"].ToString();
                     }
 
                 }
@@ -171,6 +170,7 @@ namespace Model_Helper_famework
         public int Call_Count = 0;
         public Dictionary<string, object> keyValuePairs;
 
+        [Obsolete]
         public void Connectdb(string type, string strDB = "Production")
         {
             try

@@ -21,3 +21,9 @@ D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper
 D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\obj\Debug\Model_Helper_famework.csproj.CopyComplete
 D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\obj\Debug\Model_Helper_famework.dll
 D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\obj\Debug\Model_Helper_famework.pdb
+D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\bin\Debug\EPPlus.dll
+D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\bin\Debug\EPPlus.Interfaces.dll
+D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\bin\Debug\EPPlus.System.Drawing.dll
+D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\bin\Debug\EPPlus.xml
+D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
