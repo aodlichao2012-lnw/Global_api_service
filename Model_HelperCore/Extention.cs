@@ -35,7 +35,12 @@ namespace Model_HelperCore
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                             picese.Save("D:\\image\\piece_"+ number_from_random.ToString()+"_i" + i +"_j"+j+".jpg");
+=======
+                            path += "D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg" + ";";
+                            picese.Save("D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg");
+>>>>>>> parent of b2b83c5 (commit12)
 =======
                             path += "D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg" + ";";
                             picese.Save("D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg");
