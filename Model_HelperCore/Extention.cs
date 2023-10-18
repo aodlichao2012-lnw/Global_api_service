@@ -31,7 +31,12 @@ namespace Model_HelperCore
                             {
                                 g.DrawImage(image, new Rectangle(0, 0, piecesWight, piecesWight), piecseRetangle, GraphicsUnit.Pixel);
                             }
+<<<<<<< HEAD
                             picese.Save("D:\\image\\piece_"+ number_from_random.ToString()+"_i" + i +"_j"+j+".jpg");
+=======
+                            path += "D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg" + ";";
+                            picese.Save("D:\\image\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg");
+>>>>>>> parent of b2b83c5 (commit12)
                         }
                     }
                 }
