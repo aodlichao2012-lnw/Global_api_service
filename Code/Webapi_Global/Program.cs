@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
-builder.Services.AddScoped<Webapi_Global.Class_pool.function_sql_Oracle>();
+builder.Services.AddScoped<Model_HelperCore.Funtion_Sql>();
 builder.Services.AddScoped<Model_HelperCore.Extention>();
 builder.Services.AddScoped<Model_HelperCore.ViewModel>();
 builder.Services.AddScoped<Model_HelperCore.Telclass>();

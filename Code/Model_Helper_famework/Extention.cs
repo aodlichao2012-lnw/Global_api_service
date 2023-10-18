@@ -1,17 +1,25 @@
 ﻿using Microsoft.SqlServer.Server;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using LicenseContext = OfficeOpenXml.LicenseContext;
 
 namespace Model_Helper_famework
 {
     public class Extention
     {
+        Microsoft.Office.Interop.Excel.Application excel;
+        Microsoft.Office.Interop.Excel.Workbook excelworkBook;
+        Microsoft.Office.Interop.Excel.Worksheet excelSheet;
+        Microsoft.Office.Interop.Excel.Range excelCellrange;
         public string Jigsaw()
         {
             Random random = new Random();
@@ -189,6 +197,47 @@ namespace Model_Helper_famework
             }
 
 
+        }
+
+        public void ExportExcel(DataTable dt)
+        {
+            excel = new Microsoft.Office.Interop.Excel.Application();
+            // Make Excel invisible and disable alerts.
+            excel.Visible = false;
+            excel.DisplayAlerts = false;
+
+            // Create a new Workbook.
+            excelworkBook = excel.Workbooks.Add(Type.Missing);
+            excelSheet = (Microsoft.Office.Interop.Excel.Worksheet)excelworkBook.ActiveSheet;
+            excelSheet.Name = "Test work sheet";
+            for(int rows = 0; rows < dt.Rows.Count; rows++)
+            {
+                for(int column = 0;  column < dt.Columns.Count; column++)
+                {
+                    excelSheet.Cells[excelSheet.Cells.Count - 1][column] = dt.Columns[column].ToString();
+                }
+            }
+        }
+         
+        public DataTable ImportExcel(string pathfile , string sheetName, bool hasHeader = true)
+        {
+            var dt = new DataTable();
+            var fi = new FileInfo(pathfile);
+            // Check if the file exists
+            if (!fi.Exists)
+                throw new Exception("File " + pathfile + " Does Not Exists");
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            var xlPackage = new ExcelPackage(fi);
+            // get the first worksheet in the workbook
+            var worksheet = xlPackage.Workbook.Worksheets[sheetName];
+
+            dt = worksheet.Cells[1, 1, worksheet.Dimension.End.Row, worksheet.Dimension.End.Column].ToDataTable(c =>
+            {
+                c.FirstRowIsColumnNames = true;
+            });
+
+            return dt;
         }
 
 
