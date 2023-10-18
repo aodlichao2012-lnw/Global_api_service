@@ -1,4 +1,5 @@
-﻿using Microsoft.SqlServer.Server;
+﻿
+using Microsoft.SqlServer.Server;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -10,16 +11,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using LicenseContext = OfficeOpenXml.LicenseContext;
+
 
 namespace Model_Helper_famework
 {
     public class Extention
     {
-        Microsoft.Office.Interop.Excel.Application excel;
-        Microsoft.Office.Interop.Excel.Workbook excelworkBook;
-        Microsoft.Office.Interop.Excel.Worksheet excelSheet;
-        Microsoft.Office.Interop.Excel.Range excelCellrange;
+       //Application excel;
+       //Workbook excelworkBook;
+       //Worksheet excelSheet;
+       //Range excelCellrange;
         public string Jigsaw()
         {
             Random random = new Random();
@@ -33,12 +34,12 @@ namespace Model_Helper_famework
                 {
                     for (int j = 0; j < 2; j++)
                     {
-                        Rectangle piecseRetangle = new Rectangle(i * piecesWight, j * piecesHeight, piecesWight, piecesHeight);
+                        System.Drawing.Rectangle piecseRetangle = new System.Drawing.Rectangle(i * piecesWight, j * piecesHeight, piecesWight, piecesHeight);
                         using (Bitmap picese = new Bitmap(piecesWight, piecesWight))
                         {
                             using (Graphics g = Graphics.FromImage(picese))
                             {
-                                g.DrawImage(image, new Rectangle(0, 0, piecesWight, piecesWight), piecseRetangle, GraphicsUnit.Pixel);
+                                g.DrawImage(image, new System.Drawing.Rectangle(0, 0, piecesWight, piecesWight), piecseRetangle, GraphicsUnit.Pixel);
                             }
                             path += "http://172.21.140.104:8084/imageOutput/piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg" + ";";
                             picese.Save("D:\\Api\\imageOutput\\piece_" + number_from_random.ToString() + "_i" + i + "_j" + j + ".jpg");
@@ -199,35 +200,46 @@ namespace Model_Helper_famework
 
         }
 
-        public void ExportExcel(DataTable dt)
+        public void ExportExcel(System.Data.DataTable dt , string sheetname ="Sheet1" ,string path = "D:\\Excel\\")
         {
-            excel = new Microsoft.Office.Interop.Excel.Application();
-            // Make Excel invisible and disable alerts.
-            excel.Visible = false;
-            excel.DisplayAlerts = false;
+            //excel = new Application();
+            //// Make Excel invisible and disable alerts.
+            //excel.Visible = false;
+            //excel.DisplayAlerts = false;
 
-            // Create a new Workbook.
-            excelworkBook = excel.Workbooks.Add(Type.Missing);
-            excelSheet = (Microsoft.Office.Interop.Excel.Worksheet)excelworkBook.ActiveSheet;
-            excelSheet.Name = "Test work sheet";
-            for(int rows = 0; rows < dt.Rows.Count; rows++)
+            //// Create a new Workbook.
+            //excelworkBook = excel.Workbooks.Add(Type.Missing);
+            //excelSheet = (Microsoft.Office.Interop.Excel.Worksheet)excelworkBook.ActiveSheet;
+            //excelSheet.Name = "Test work sheet";
+            //for(int rows = 0; rows < dt.Rows.Count; rows++)
+            //{
+            //    for(int column = 0;  column < dt.Columns.Count; column++)
+            //    {
+            //        excelSheet.Cells[excelSheet.Cells.Count - 1][column] = dt.Columns[column].ToString();
+            //    }
+            //}
+            if (!Directory.Exists(path))
             {
-                for(int column = 0;  column < dt.Columns.Count; column++)
-                {
-                    excelSheet.Cells[excelSheet.Cells.Count - 1][column] = dt.Columns[column].ToString();
-                }
+                Directory.CreateDirectory(path);
+            }
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            using (ExcelPackage pck = new ExcelPackage(path+DateTime.Now.ToString("yyyy_MM-dd_mm_ss")+".xlsx"))
+            {
+                ExcelWorksheet ws = pck.Workbook.Worksheets.Add(sheetname);
+                ws.Cells["A1"].LoadFromDataTable(dt, true);
+                pck.Save();
             }
         }
          
-        public DataTable ImportExcel(string pathfile , string sheetName, bool hasHeader = true)
+        public System.Data.DataTable ImportExcel(string pathfile , string sheetName, bool hasHeader = true)
         {
-            var dt = new DataTable();
+            var dt = new System.Data.DataTable();
             var fi = new FileInfo(pathfile);
             // Check if the file exists
             if (!fi.Exists)
                 throw new Exception("File " + pathfile + " Does Not Exists");
 
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
             var xlPackage = new ExcelPackage(fi);
             // get the first worksheet in the workbook
             var worksheet = xlPackage.Workbook.Worksheets[sheetName];
