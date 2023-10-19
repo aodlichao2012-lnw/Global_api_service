@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using static OfficeOpenXml.ExcelErrorValue;
 
 namespace Model_Helper_famework
 {
@@ -432,34 +433,70 @@ namespace Model_Helper_famework
         }
         public static DataTable ToDataTable<T>(IEnumerable<T> items)
         {
-            var table = new DataTable();
-            var table2 = new DataTable();
-            var props = typeof(T).GetProperties();
+            try
+            {
+                var table = new DataTable();
+                var table2 = new DataTable();
+                //Get ชื่อ column
+                var props = typeof(T).GetProperties();
 
-            foreach (var prop in props)
-            {
-              table.Columns.Add(prop.Name, prop.PropertyType);
-            }
-            foreach (var item in items)
-            {
-              
-                var values = props.Select(prop => prop.GetValue(item)).ToArray();
-                table.Rows.Add(values);
-            }
-            foreach(DataRow item in table.Rows)
-            {
-                for(int i =0; i < props.Length; i++) 
+                //วนลูป เอา column ใส่ table แรก
+                foreach (var prop in props)
                 {
-                    if (!item.IsNull(i) || !string.IsNullOrEmpty(item[i].ToString()))
+                    table.Columns.Add(prop.Name, prop.PropertyType);
+                }
+                //วนลูปเอา values จาก column ใส่ table แรก
+                foreach (var item in items)
+                {
+
+                    var values = props.Select(prop => prop.GetValue(item)).ToArray();
+                    table.Rows.Add(values);
+                }
+                //วนลูปเพื่อ เอา column จาก table แรก มากรอง เอาแต่ column ที่มีข้อมูลจริงๆเท่านั้น
+                foreach (DataRow item in table.Rows)
+                {
+                    for (int i = 0; i < props.Length; i++)
                     {
-                        table2.Columns.Add(props[i].Name, props[i].PropertyType);
-                        table2.Rows.Add(item[i]);
+                        if (!item.IsNull(i) || !string.IsNullOrEmpty(item[i].ToString()))
+                        {
+                            if (!table2.Columns.Contains(props[i].Name))
+                            {
+                                table2.Columns.Add(props[i].Name, props[i].PropertyType);
+
+                            }
+
+                        }
+
                     }
                 }
-
+                //วนลูปเพื่อเอา ข้อมูลจาก table แรกที่กรองแล้ว มาใส่ table ที่สอง
+                for(int s =0; s < table.Rows.Count; s++)
+                {
+                    for(int r =0;  r < table.Columns.Count; r++)
+                    {
+                        if(table.Rows[s][r].ToString() != "")
+                        {
+                            for(int v =0; v < table2.Columns.Count; v++)
+                            {
+                                if (table2.Columns[v].ColumnName == table.Columns[r].ColumnName)
+                                {
+                                    table2.Rows.Add();
+                                    table2.Rows[s][v] = table.Rows[s][r].ToString();
+                                }
+                            }
+                          
+                          
+                        }
+                     
+                    }
+                }
+                return table2;
             }
-
-            return table2;
+            catch(Exception ex)
+            {
+                return null;
+            }
+          
         }
         public void Log(string message)
         {

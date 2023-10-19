@@ -231,7 +231,7 @@ namespace Model_Helper_famework
             }
         }
          
-        public System.Data.DataTable ImportExcel(string pathfile , string sheetName, bool hasHeader = true)
+        public System.Data.DataTable ImportExcel(string pathfile , string sheetName = "Sheet1", bool hasHeader = true)
         {
             var dt = new System.Data.DataTable();
             var fi = new FileInfo(pathfile);
