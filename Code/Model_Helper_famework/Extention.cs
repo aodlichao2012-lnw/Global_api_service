@@ -218,7 +218,7 @@ namespace Model_Helper_famework
             }
             catch(Exception ex)
             {
-              dt.Rows.Add(  Error_providers.Instances.CustomsExceptions(ex));
+              Error_providers.Instances.CustomsExceptions(ex);
             }
          
         }
@@ -248,7 +248,7 @@ namespace Model_Helper_famework
             }
             catch(Exception ex)
             {
-                dt.Rows.Add(Error_providers.Instances.CustomsExceptions(ex));
+                Error_providers.Instances.CustomsExceptions(ex);
                 return dt;
             }
            
