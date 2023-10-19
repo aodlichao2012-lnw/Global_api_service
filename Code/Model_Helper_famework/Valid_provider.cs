@@ -41,6 +41,10 @@ namespace Model_Helper_famework
                     }
                     else
                         message = "ok";
+                    if(values_item.GetValue(values_item) == null)
+                    {
+                        return "มีค่า type" + values_item.PropertyType + "ที่ว่างเปล่า";
+                    }
 
                 }
                 return message;

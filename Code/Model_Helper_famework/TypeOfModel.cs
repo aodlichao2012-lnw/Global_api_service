@@ -15,5 +15,7 @@ namespace Model_Helper_famework
         public Decimal MyProperty4 { get; set; }
         public short MyProperty5 { get; set; }
         public DateTime MyProperty6 { get; set; }
+        public bool MyProperty7 { get; set; }
+        public Boolean MyProperty8 { get; set; }
     }
 }
