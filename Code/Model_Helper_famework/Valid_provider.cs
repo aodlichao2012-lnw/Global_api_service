@@ -29,19 +29,26 @@ namespace Model_Helper_famework
 
         public string isvaild(object model, object values, ref string message)
         {
-
-            foreach(var values_item in values.GetType().GetProperties())
+            try
             {
-                
-                if (!model.GetType().GetProperties().Any(x => x.PropertyType == values_item.PropertyType))
+                foreach (var values_item in values.GetType().GetProperties())
                 {
-                    return "type "+values_item.Name+" ไม่ตรงกัน ไม่สามารถทำงานต่อได้";
-                }
-                else
-                    message = "ok";
 
+                    if (!model.GetType().GetProperties().Any(x => x.PropertyType == values_item.PropertyType))
+                    {
+                        return "type " + values_item.Name + " ไม่ตรงกัน ไม่สามารถทำงานต่อได้";
+                    }
+                    else
+                        message = "ok";
+
+                }
+                return message;
             }
-            return message;
+            catch(Exception ex)
+            {
+                return Error_providers.Instances.CustomsExceptions(ex);
+            }
+           
         }
     }
 }
