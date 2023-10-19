@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,19 +35,30 @@ namespace Model_Helper_famework
                 propertyName[count] = propertyInfo.Name;
                 count++;
             }
-            ValidationContext context = new ValidationContext(model, null, null)
+            List<ValidationContext> validationContextsList = new List<ValidationContext>();
+            foreach(var  propertNameCount in propertyName)
             {
-                MemberName = propertyName[0]
-            };
-            var results = new List<ValidationResult>();
-            var isValid = Validator.TryValidateProperty(values, context, results);
-            if (!isValid)
-            {
-                foreach (ValidationResult result in results)
-                    message = result.ErrorMessage.ToString();
+              ValidationContext ValidationContext =  new ValidationContext(model, null, null)
+                {
+                    MemberName = propertNameCount
+                };
+                validationContextsList.Add(ValidationContext);
             }
-            else
-                return "ok";
+            
+            foreach(var validationContext_item in validationContextsList)
+            {
+                var results = new List<ValidationResult>();
+                var isValid = Validator.TryValidateProperty(values, validationContext_item, results);
+                if (!isValid)
+                {
+                    foreach (ValidationResult result in results)
+                        message = result.ErrorMessage.ToString();
+                }
+                else
+                    return "ok";
+
+            }
+          
             return message;
         }
     }
