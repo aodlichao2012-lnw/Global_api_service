@@ -292,7 +292,15 @@ namespace Model_Helper_famework
                             ViewModel model = new ViewModel();
                             Task.Delay(2000);
                             List<ViewModel> data = Connect.Query<ViewModel>(command.CommandText).ToList();
-                            message = Valid_provider.Instances.isvaild(model, data, ref message);
+                            foreach(var item in data)
+                            {
+                                for(int i =0; i < item.GetType().GetProperties().Length; i++)
+                                {
+                                    message = Valid_provider.Instances.isvaild(model, item ,ref message);
+                                }
+                               
+                            }
+
                             dt2 = ToDataTable(data);
 
                         }
