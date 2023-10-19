@@ -202,54 +202,56 @@ namespace Model_Helper_famework
 
         public void ExportExcel(System.Data.DataTable dt , string sheetname ="Sheet1" ,string path = "D:\\Excel\\")
         {
-            //excel = new Application();
-            //// Make Excel invisible and disable alerts.
-            //excel.Visible = false;
-            //excel.DisplayAlerts = false;
-
-            //// Create a new Workbook.
-            //excelworkBook = excel.Workbooks.Add(Type.Missing);
-            //excelSheet = (Microsoft.Office.Interop.Excel.Worksheet)excelworkBook.ActiveSheet;
-            //excelSheet.Name = "Test work sheet";
-            //for(int rows = 0; rows < dt.Rows.Count; rows++)
-            //{
-            //    for(int column = 0;  column < dt.Columns.Count; column++)
-            //    {
-            //        excelSheet.Cells[excelSheet.Cells.Count - 1][column] = dt.Columns[column].ToString();
-            //    }
-            //}
-            if (!Directory.Exists(path))
+            try
             {
-                Directory.CreateDirectory(path);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                using (ExcelPackage pck = new ExcelPackage(path + DateTime.Now.ToString("yyyy_MM-dd_mm_ss") + ".xlsx"))
+                {
+                    ExcelWorksheet ws = pck.Workbook.Worksheets.Add(sheetname);
+                    ws.Cells["A1"].LoadFromDataTable(dt, true);
+                    pck.Save();
+                }
             }
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-            using (ExcelPackage pck = new ExcelPackage(path+DateTime.Now.ToString("yyyy_MM-dd_mm_ss")+".xlsx"))
+            catch(Exception ex)
             {
-                ExcelWorksheet ws = pck.Workbook.Worksheets.Add(sheetname);
-                ws.Cells["A1"].LoadFromDataTable(dt, true);
-                pck.Save();
+              dt.Rows.Add(  Error_providers.Instance.CustomsExceptions(ex));
             }
+         
         }
          
         public System.Data.DataTable ImportExcel(string pathfile , string sheetName = "Sheet1", bool hasHeader = true)
         {
             var dt = new System.Data.DataTable();
-            var fi = new FileInfo(pathfile);
-            // Check if the file exists
-            if (!fi.Exists)
-                throw new Exception("File " + pathfile + " Does Not Exists");
-
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-            var xlPackage = new ExcelPackage(fi);
-            // get the first worksheet in the workbook
-            var worksheet = xlPackage.Workbook.Worksheets[sheetName];
-
-            dt = worksheet.Cells[1, 1, worksheet.Dimension.End.Row, worksheet.Dimension.End.Column].ToDataTable(c =>
+            try
             {
-                c.FirstRowIsColumnNames = true;
-            });
 
-            return dt;
+                var fi = new FileInfo(pathfile);
+                // Check if the file exists
+                if (!fi.Exists)
+                    throw new Exception("File " + pathfile + " Does Not Exists");
+
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                var xlPackage = new ExcelPackage(fi);
+                // get the first worksheet in the workbook
+                var worksheet = xlPackage.Workbook.Worksheets[sheetName];
+
+                dt = worksheet.Cells[1, 1, worksheet.Dimension.End.Row, worksheet.Dimension.End.Column].ToDataTable(c =>
+                {
+                    c.FirstRowIsColumnNames = true;
+                });
+
+                return dt;
+            }
+            catch(Exception ex)
+            {
+                dt.Rows.Add(Error_providers.Instance.CustomsExceptions(ex));
+                return dt;
+            }
+           
         }
 
 

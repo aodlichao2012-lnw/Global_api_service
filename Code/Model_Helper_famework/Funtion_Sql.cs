@@ -184,8 +184,8 @@ namespace Model_Helper_famework
             }
             catch (Exception ex)
             {
-                Log("Error ที่ Connect : " + ex.Message.ToString());
-                Log("ไม่สามารถบันทึกข้อมูลได้เนื่องจากปัญหาติดต่อฐานข้อมูล " + ex.Message + "ผลการตรวจสอบ");
+                Log("Error ที่ Connect : " + Error_providers.Instances.CustomsExceptions( ex));
+                Log("ไม่สามารถบันทึกข้อมูลได้เนื่องจากปัญหาติดต่อฐานข้อมูล " + Error_providers.Instances.CustomsExceptions(ex) + "ผลการตรวจสอบ");
             }
         }
 
@@ -211,7 +211,7 @@ namespace Model_Helper_famework
             }
             catch (Exception ex)
             {
-                Log("Error ที่ Comman_Static : " + ex.Message.ToString());
+                Log("Error ที่ Comman_Static : " + Error_providers.Instances.CustomsExceptions(ex));
 
             }
             finally
@@ -288,8 +288,11 @@ namespace Model_Helper_famework
                         }
                         else
                         {
+                            string message = string.Empty;
+                            ViewModel model = new ViewModel();
                             Task.Delay(2000);
                             List<ViewModel> data = Connect.Query<ViewModel>(command.CommandText).ToList();
+                            message = Valid_provider.Instances.isvaild(model, data, ref message);
                             dt2 = ToDataTable(data);
 
                         }
@@ -348,7 +351,7 @@ namespace Model_Helper_famework
                     }
                     catch (OracleException ex)
                     {
-                        Log("Error ที่ Comman_Ex : " + ex.Message.ToString());
+                        Log("Error ที่ Comman_Ex : " + Error_providers.Instances.CustomsExceptions(ex));
                         transaction.Commit();
                         transaction.Dispose();
                         return -1;
@@ -359,7 +362,7 @@ namespace Model_Helper_famework
             }
             catch (Exception ex)
             {
-                Log("Error ที่ Comman_Ex : " + ex.Message.ToString());
+                Log("Error ที่ Comman_Ex : " + Error_providers.Instances.CustomsExceptions(ex));
                 return 0;
             }
             finally
@@ -426,16 +429,17 @@ namespace Model_Helper_famework
             }
             catch (Exception ex)
             {
-                Log("Error ที่ GetFromToken : " + ex.Message.ToString());
+                Log("Error ที่ GetFromToken : " + Error_providers.Instances.CustomsExceptions(ex));
                 return null;
             }
 
         }
         public static DataTable ToDataTable<T>(IEnumerable<T> items)
         {
+            var table = new DataTable();
             try
             {
-                var table = new DataTable();
+     
                 var table2 = new DataTable();
                 //Get ชื่อ column
                 var props = typeof(T).GetProperties();
@@ -494,7 +498,8 @@ namespace Model_Helper_famework
             }
             catch(Exception ex)
             {
-                return null;
+                table.Rows.Add(Error_providers.Instances.CustomsExceptions(ex));
+                return table;
             }
           
         }
@@ -514,9 +519,9 @@ namespace Model_Helper_famework
                     steam.WriteLine(": " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + ": = " + message);
                 }
             }
-            catch
+            catch(Exception ex)
             {
-
+                Error_providers.Instances.CustomsExceptions(ex);
             }
 
 
@@ -538,9 +543,9 @@ namespace Model_Helper_famework
                     steam.WriteLine(": " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + ": = " + message);
                 }
             }
-            catch
+            catch(Exception ex)
             {
-
+                Error_providers.Instances.CustomsExceptions(ex);
             }
 
 
