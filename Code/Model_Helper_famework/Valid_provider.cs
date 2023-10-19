@@ -36,7 +36,8 @@ namespace Model_Helper_famework
 
                     if (!model.GetType().GetProperties().Any(x => x.PropertyType == values_item.PropertyType))
                     {
-                        return "type " + values_item.Name + " ไม่ตรงกัน ไม่สามารถทำงานต่อได้";
+                        message = "type " + values_item.Name + " ไม่ตรงกัน ไม่สามารถทำงานต่อได้";
+                        return message;
                     }
                     else
                         message = "ok";
