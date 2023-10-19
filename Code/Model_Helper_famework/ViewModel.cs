@@ -14,9 +14,9 @@ namespace Model_Helper_famework
         public string txtDate_Tel { get; set; }
         public string cboStatus { get; set; }
         public string cboDeny { get; set; }
-        public bool btnEdit { get; set; }
-        public bool btnSave { get; set; }
-        public bool Button1 { get; set; }
+        //public bool btnEdit { get; set; }
+        //public bool btnSave { get; set; }
+        //public bool Button1 { get; set; }
         public string cboSex { get; set; }
         public string txtYear { get; set; }
         public string cboDate { get; set; }

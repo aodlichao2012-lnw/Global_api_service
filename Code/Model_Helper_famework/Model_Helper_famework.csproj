@@ -77,7 +77,9 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Extention.cs" />
-    <Compile Include="Funtion_Sql.cs" />
+    <Compile Include="Funtion_Sql.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel.cs" />
   </ItemGroup>

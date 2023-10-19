@@ -27,3 +27,5 @@ D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper
 D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
 D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\bin\Debug\EPPlus.xml
 D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
+D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\bin\Debug\System.ComponentModel.Annotations.dll
+D:\work\Program_v4.8\ais_web2\Webapi_Global\Global_api_service\Code\Model_Helper_famework\bin\Debug\Funtion_Sql.cs
