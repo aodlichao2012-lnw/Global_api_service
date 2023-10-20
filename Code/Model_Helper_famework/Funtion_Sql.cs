@@ -288,9 +288,13 @@ namespace Model_Helper_famework
                         }
                         else
                         {
+                            string message = string.Empty;
+                            ViewModel viewModel = new ViewModel();
                             Task.Delay(2000);
                             List<ViewModel> data = Connect.Query<ViewModel>(command.CommandText).ToList();
+
                             dt2 = ToDataTable(data);
+                            Valid_provider.Instances.isvaild(viewModel, dt2, ref message);
 
                         }
                     }
@@ -359,7 +363,7 @@ namespace Model_Helper_famework
             }
             catch (Exception ex)
             {
-                Log("Error ที่ Comman_Ex : " +ex.Message.ToString());
+                Log("Error ที่ Comman_Ex : " + ex.Message.ToString());
                 return 0;
             }
             finally
@@ -436,7 +440,7 @@ namespace Model_Helper_famework
             var table = new DataTable();
             try
             {
-     
+
                 var table2 = new DataTable();
                 //Get ชื่อ column
                 var props = typeof(T).GetProperties();
@@ -471,13 +475,14 @@ namespace Model_Helper_famework
                     }
                 }
                 //วนลูปเพื่อเอา ข้อมูลจาก table แรกที่กรองแล้ว มาใส่ table ที่สอง
-                for(int s =0; s < table.Rows.Count; s++)
+                for (int s = 0; s < table.Rows.Count; s++)
                 {
-                    for(int r =0;  r < table.Columns.Count; r++)
+                    for (int r = 0; r < table.Columns.Count; r++)
                     {
-                        if(table.Rows[s][r].ToString() != "")
+                        if (table.Rows[s][r] != null && table.Rows[s][r].ToString() != "")
                         {
-                            for(int v =0; v < table2.Columns.Count; v++)
+
+                            for (int v = 0; v < table2.Columns.Count; v++)
                             {
                                 if (table2.Columns[v].ColumnName == table.Columns[r].ColumnName)
                                 {
@@ -485,19 +490,44 @@ namespace Model_Helper_famework
                                     table2.Rows[s][v] = table.Rows[s][r].ToString();
                                 }
                             }
-                          
-                          
+
+
                         }
-                     
+
                     }
                 }
-                return table2;
+                DataTable table3 = new DataTable();
+                for (int i = 0; i < table2.Rows.Count; i++)
+                {
+                    if (table2.Rows[i].ItemArray[0].ToString() != "")
+                    {
+                        table3.Rows.Add();
+                    }
+                    for (int v = 0; v < table2.Columns.Count; v++)
+                    {
+                    
+                            if (!table3.Columns.Contains(table2.Columns[v].ColumnName))
+                            {
+                                table3.Columns.Add(table2.Columns[v].ColumnName);
+
+                            }
+                            if(table2.Rows[i][v].ToString() != "")
+                            {
+
+                                table3.Rows[i][v] = table2.Rows[i][v].ToString();
+                            }
+                       
+
+                        }
+                    }
+
+                return table3;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return table;
             }
-          
+
         }
         public void Log(string message)
         {
@@ -515,7 +545,7 @@ namespace Model_Helper_famework
                     steam.WriteLine(": " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + ": = " + message);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
             }
 
@@ -538,7 +568,7 @@ namespace Model_Helper_famework
                     steam.WriteLine(": " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + ": = " + message);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
             }
 

@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
+using DataTable = System.Data.DataTable;
 
 namespace Model_Helper_famework
 {
@@ -31,22 +35,53 @@ namespace Model_Helper_famework
         {
             try
             {
+                List<DataRow> objectList1 = null;
+                List<object> objectList2 = null;
+                if (values.GetType() == typeof(DataTable))
+                {
+                    DataTable objectArray = (DataTable)values;
+                    objectList1 = objectArray.AsEnumerable().ToList();
+                    foreach (var item in objectList1)
+                    {
+                        if (item == null || item.ToString() == "")
+                        {
+                            message = "มีค่า type" + item.GetType().DeclaringType + "ที่ว่างเปล่า";
+                            return message;
+                        }
+                    }
+                }
+                else
+                {
+                    object[] objectArray = (object[])values;
+                    objectList2 = new List<object>(objectArray);
+                    foreach (var item in objectList2)
+                    {
+                        if (item == null || item.ToString() == "")
+                        {
+                            message = "มีค่า type" + item.GetType().DeclaringType + "ที่ว่างเปล่า";
+                            return message;
+                        }
+                    }
+                }
+             
+
                 foreach (var values_item in values.GetType().GetProperties())
                 {
 
-                    if (!model.GetType().GetProperties().Any(x => x.PropertyType == values_item.PropertyType))
+                    if (!model.GetType().GetProperties().Any( z => z.PropertyType == values_item.PropertyType))
                     {
-                        message = "type " + values_item.Name + " ไม่ตรงกัน ไม่สามารถทำงานต่อได้";
+                        message = "type " + values_item.GetType().DeclaringType + " ไม่ตรงกัน ไม่สามารถทำงานต่อได้";
                         return message;
                     }
                     else
-                        message = "ok";
-                    if(values_item.GetValue(values_item) == null)
                     {
-                        return "มีค่า type" + values_item.PropertyType + "ที่ว่างเปล่า";
+                        message = "ok";
                     }
-
                 }
+           
+
+            
+
                 return message;
             }
             catch(Exception ex)
