@@ -17,19 +17,20 @@ namespace Model_Helper_famework
 {
     public class Extention
     {
-       //Application excel;
-       //Workbook excelworkBook;
-       //Worksheet excelSheet;
-       //Range excelCellrange;
-        public string Jigsaw()
+        #region สร้างภาพ jigsaw
+        public string Jigsaw(int divide)
         {
             Random random = new Random();
             string path = string.Empty;
             int number_from_random = random.Next(0, 10);
+            if (!Directory.Exists("D:\\Api\\Image\\"))
+            {
+                Directory.CreateDirectory("D:\\Api\\Image\\");
+            }
             using (Bitmap image = new Bitmap($@"D:\Api\Image\{number_from_random}.jpg"))
             {
-                int piecesWight = image.Width / 2;
-                int piecesHeight = image.Width / 2;
+                int piecesWight = image.Width / divide;
+                int piecesHeight = image.Width / divide;
                 for (int i = 0; i < 2; i++)
                 {
                     for (int j = 0; j < 2; j++)
@@ -49,6 +50,9 @@ namespace Model_Helper_famework
             }
             return path;
         }
+        #endregion
+
+        #region Log 
         public void Log(string message)
         {
             try
@@ -200,7 +204,10 @@ namespace Model_Helper_famework
 
         }
 
-        public void ExportExcel(System.Data.DataTable dt , string sheetname ="Sheet1" ,string path = "D:\\Excel\\")
+        #endregion
+
+        #region ส่งออก Excel
+        public void ExportExcel(System.Data.DataTable dt, string sheetname = "Sheet1", string path = "D:\\Excel\\")
         {
             try
             {
@@ -216,14 +223,16 @@ namespace Model_Helper_famework
                     pck.Save();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-              Error_providers.Instances.CustomsExceptions(ex);
+                Error_providers.Instances.CustomsExceptions(ex);
             }
-         
+
         }
-         
-        public System.Data.DataTable ImportExcel(string pathfile , string sheetName = "Sheet1", bool hasHeader = true)
+        #endregion
+
+        #region นำเข้า Excel
+        public System.Data.DataTable ImportExcel(string pathfile, string sheetName = "Sheet1", bool hasHeader = true)
         {
             var dt = new System.Data.DataTable();
             try
@@ -246,14 +255,75 @@ namespace Model_Helper_famework
 
                 return dt;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Error_providers.Instances.CustomsExceptions(ex);
                 return dt;
             }
-           
+
+        }
+        #endregion
+
+        #region เลบอภาพ
+        public void ImageBlur(string imagePath)
+        {
+            // โหลดภาพ
+            Bitmap originalImage = new Bitmap(imagePath);
+
+            // สร้าง Bitmap สำหรับภาพที่เบลอ
+            Bitmap blurredImage = new Bitmap(originalImage.Width, originalImage.Height);
+
+            int blurRadius = 5; // ปรับค่านี้เพื่อควบคุมความเบลอ
+
+            // ใช้ฟังก์ชันเบลอภาพ
+            ApplyBoxBlur(originalImage, blurredImage, blurRadius);
+
+            // บันทึกภาพที่เบลอลงไฟล์
+            blurredImage.Save("blurred_image.jpg");
+
+            // ปิด Bitmap
+            originalImage.Dispose();
+            blurredImage.Dispose();
         }
 
+        static void ApplyBoxBlur(Bitmap source, Bitmap destination, int radius)
+        {
+            for (int x = 0; x < source.Width; x++)
+            {
+                for (int y = 0; y < source.Height; y++)
+                {
+                    int red = 0, green = 0, blue = 0, count = 0;
+
+                    for (int i = -radius; i <= radius; i++)
+                    {
+                        for (int j = -radius; j <= radius; j++)
+                        {
+                            int newX = x + i;
+                            int newY = y + j;
+
+                            if (newX >= 0 && newX < source.Width && newY >= 0 && newY < source.Height)
+                            {
+                                Color pixel = source.GetPixel(newX, newY);
+                                red += pixel.R;
+                                green += pixel.G;
+                                blue += pixel.B;
+                                count++;
+                            }
+                        }
+                    }
+
+                    red /= count;
+                    green /= count;
+                    blue /= count;
+
+                    Color blurredColor = Color.FromArgb(red, green, blue);
+                    destination.SetPixel(x, y, blurredColor);
+                }
+            }
+
+
+        }
+        #endregion
 
     }
 }
