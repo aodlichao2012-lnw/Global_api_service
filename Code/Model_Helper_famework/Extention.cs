@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.SqlServer.Server;
 using OfficeOpenXml;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-
+using System.Web.UI;
+using System.Windows.Forms;
 
 namespace Model_Helper_famework
 {
@@ -325,6 +327,50 @@ namespace Model_Helper_famework
         }
         #endregion
 
+        #region ฟังก์ชั้น คัดลอกและวางรูปภาพลงในสเต็ปโดยตรง
+
+        private PictureBox pictureBox;
+        private Button copyButton;
+        private Button pasteButton;
+
+        public void ImageCopyPasteApp()
+        {
+
+            pictureBox = new PictureBox
+            {
+                Dock = DockStyle.Fill,
+                BorderStyle = BorderStyle.Fixed3D
+            };
+
+            copyButton = new Button
+            {
+                Text = "Copy Image",
+                Dock = DockStyle.Top
+            };
+
+            pasteButton = new Button
+            {
+                Text = "Paste Image",
+                Dock = DockStyle.Top
+            };
+
+        }
+        private void CopyButton_Click(object sender, EventArgs e)
+        {
+            if (pictureBox.Image != null)
+            {
+                Clipboard.SetImage(pictureBox.Image);
+            }
+        }
+
+        private void PasteButton_Click(object sender, EventArgs e)
+        {
+            if (Clipboard.ContainsImage())
+            {
+                pictureBox.Image = Clipboard.GetImage();
+            }
+        }
+        #endregion
     }
 }
 
